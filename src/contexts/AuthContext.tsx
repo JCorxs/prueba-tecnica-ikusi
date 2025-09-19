@@ -14,11 +14,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         else localStorage.removeItem('token');
     }, [token]);
     const login = async (email: string, password: string) => {
-        // Validación mínima (en frontend)
-        if (!email || !password) throw new Error('Email and password required');
+        // Validación de correo y contraseña
+        if (!email || !password) throw new Error('Email y password requeridos');
         // Simula llamada a API de auth
         await new Promise((r) => setTimeout(r, 400));
-        // Token falso
+        // Simula token
         const fakeToken = btoa(`${email}:fake-token`);
         setToken(fakeToken);
         return;

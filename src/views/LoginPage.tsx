@@ -11,7 +11,13 @@ export const LoginPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
-        if (!email || !password) return setError('*Email y contraseña son obligatorios');
+            if (!email || !password) {
+            return setError('*Email y contraseña son obligatorios');
+        }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return setError('*Formato de email inválido');
+        }
         setLoading(true);
         try {
             await login(email, password);
@@ -24,8 +30,11 @@ export const LoginPage: React.FC = () => {
     };
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-4">Iniciar sesión</h2>
+            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-lg w-full max-w-md">
+                <div className="flex justify-center">
+                    <img src="/logo.svg" alt="Usuario" className="w-30 h-30 mb-4" />
+                </div>
+                <h2 className="text-1xl font-bold mb-4 text-center">Iniciar sesión</h2>
                 {error && <div className="text-red-600 mb-2">{error}</div>}
                 <label className="block mb-2">Email</label>
                 <input className="w-full p-2 border rounded mb-4" value={email}

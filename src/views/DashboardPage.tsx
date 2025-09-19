@@ -14,6 +14,8 @@ export const DashboardPage: React.FC = () => {
     const [metrics, setMetrics] = useState<MetricPoint[]>([]);
     const [metricsLoading, setMetricsLoading] = useState(false);
     const { logout } = useAuth();
+    //Típo de grafico
+    const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
     useEffect(() => {
         setMetricsLoading(true);
         fetchMetrics(selectedPath)
@@ -46,12 +48,24 @@ export const DashboardPage: React.FC = () => {
                         </div>
                         <div className="text-sm text-gray-500">Especies avistadas</div>
                     </div>
+
+                    <div className="mb-3 flex gap-2">
+                        <button
+                            className="px-3 py-1 bg-principal text-white rounded hover:brightness-90 transition-all"
+                            onClick={() => setChartType('bar')}>Barras
+                        </button>
+                        <button
+                            className="px-3 py-1 bg-principal text-white rounded hover:brightness-90 transition-all"
+                            onClick={() => setChartType('line')}>Línea
+                        </button>
+                    </div>
+
                     <div>
                         {metricsLoading ? (<Loading />) : metrics.length === 0 ? (
                             <div className="p-4 text-gray-500">No hay datos para la
                                 selección.</div>
                         ) : (
-                            <ChartView data={metrics} />
+                            <ChartView data={metrics} type={chartType}/>
                         )}
                     </div>
                 </main>

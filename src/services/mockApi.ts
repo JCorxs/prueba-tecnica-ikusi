@@ -1,6 +1,5 @@
 import type { HierarchyNode, MetricPoint } from '../types';
 
-// Data estática de ejemplo (Country > City > Office)
 const MOCK_HIERARCHY: HierarchyNode[] = [
     {
         id: 'mam',
@@ -43,9 +42,109 @@ const MOCK_HIERARCHY: HierarchyNode[] = [
             },
         ],
     },
+    {
+        id: 'pec',
+        name: 'Peces',
+        type: 'class',
+        children: [
+          {
+            id: 'sal',
+            name: 'Salmonidae',
+            type: 'family',
+            children: [
+              { id: 'salmo', name: 'Salmón', type: 'species' },
+              { id: 'truta', name: 'Trucha', type: 'species' },
+            ],
+          },
+          {
+            id: 'car',
+            name: 'Carpidae',
+            type: 'family',
+            children: [
+              { id: 'carpa', name: 'Carpa', type: 'species' },
+              { id: 'goldfish', name: 'Pez dorado', type: 'species' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'rep',
+        name: 'Reptiles',
+        type: 'class',
+        children: [
+          {
+            id: 'saur',
+            name: 'Saurios',
+            type: 'family',
+            children: [
+              { id: 'iguana', name: 'Iguana', type: 'species' },
+              { id: 'gecko', name: 'Gecko', type: 'species' },
+            ],
+          },
+          {
+            id: 'serp',
+            name: 'Serpientes',
+            type: 'family',
+            children: [
+              { id: 'cobra', name: 'Cobra', type: 'species' },
+              { id: 'boa', name: 'Boa', type: 'species' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'ins',
+        name: 'Insectos',
+        type: 'class',
+        children: [
+          {
+            id: 'lep',
+            name: 'Lepidópteros',
+            type: 'family',
+            children: [
+              { id: 'mariposa-monarca', name: 'Mariposa monarca', type: 'species' },
+              { id: 'polilla', name: 'Polilla', type: 'species' },
+            ],
+          },
+          {
+            id: 'col',
+            name: 'Coleópteros',
+            type: 'family',
+            children: [
+              { id: 'escarabajo', name: 'Escarabajo', type: 'species' },
+              { id: 'mariquita', name: 'Mariquita', type: 'species' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'mol',
+        name: 'Moluscos',
+        type: 'class',
+        children: [
+          {
+            id: 'ceph',
+            name: 'Cefalópodos',
+            type: 'family',
+            children: [
+              { id: 'pulpo', name: 'Pulpo', type: 'species' },
+              { id: 'calamar', name: 'Calamar', type: 'species' },
+            ],
+          },
+          {
+            id: 'gast',
+            name: 'Gasterópodos',
+            type: 'family',
+            children: [
+              { id: 'caracol', name: 'Caracol', type: 'species' },
+              { id: 'babosa', name: 'Babosa', type: 'species' },
+            ],
+          },
+        ],
+      },
 ];
 
-// Simula latencia y posibilidad de error
+// Latencia y errores simulados
 function simulate<T>(data: T, delay = 700, failRate = 0.05): Promise<T> {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -54,11 +153,11 @@ function simulate<T>(data: T, delay = 700, failRate = 0.05): Promise<T> {
         }, delay);
     });
 }
-
+// Simula fetch de jerarquía
 export async function fetchHierarchy() {
     return simulate(MOCK_HIERARCHY, 800);
 }
-
+// Simula fetch de métricas, con filtrado por path jerárquico
 export async function fetchMetrics(selectedIds: string[] = []) {
     type SpecieInfo = { id: string; name: string; path: string };
 
@@ -78,7 +177,7 @@ export async function fetchMetrics(selectedIds: string[] = []) {
             if (n.children) walk(n.children, currentPath);
         }
     }
-
+    // Iniciar recorrido
     walk(MOCK_HIERARCHY);
 
     // Generar métricas aleatorias
@@ -87,7 +186,7 @@ export async function fetchMetrics(selectedIds: string[] = []) {
         name: sp.name,
         value: Math.floor(Math.random() * 100),
     }));
-
+    // Filtrado según path jerárquico
     const filtered = metrics.filter((m) => {
         if (selectedIds.length === 0) return true;
         const specie = allSpecies.find((o) => o.id === m.key);
@@ -97,7 +196,7 @@ export async function fetchMetrics(selectedIds: string[] = []) {
         return selectedIds.every((id, idx) => speciePathArr[idx] === id);
       });
       
-
+    //Logs para revisar selección de categorías
     console.log('Selected IDs:', selectedIds);
     console.log('Generated species:', allSpecies);
     console.log('Metrics:', filtered);

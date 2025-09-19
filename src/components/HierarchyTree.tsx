@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { HierarchyNode } from '../types';
 interface Props {
     nodes: HierarchyNode[];
-    onSelect: (path: string[]) => void; // path de ids seleccionados
+    onSelect: (path: string[]) => void;
 }
 export const HierarchyTree: React.FC<Props> = ({ nodes, onSelect }) => {
     return (

@@ -14,7 +14,6 @@ export function useAsync<T>(asyncFn: () => Promise<T>, deps: any[] = []) {
         return () => {
             mounted = false;
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, deps);
     return { loading, error, data };
 }

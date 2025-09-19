@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         principal: '#00bc70',
-        princHover: '#009a5c'
+        princHover: '#fff'
       }
     },  
 

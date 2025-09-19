@@ -18,6 +18,16 @@ El proyecto estará disponible en **http://localhost:5173**.
 
 ---
 
+## ⚡ Explicación del proyecto
+
+```
+Consiste en un dashboard que muestra a través de un gráfico especies de animales avistadas ordenadas de forma jerárquica: "Clase > Familia > Especie"; para poder acceder, se debe iniciar sesión.
+
+```
+
+
+---
+
 ## 📂 Estructura del proyecto
 
 ```
