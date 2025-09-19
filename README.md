@@ -5,6 +5,13 @@ Está construido con **React + Vite**, utilizando **TailwindCSS** para los estil
 
 ---
 
+## 🛠 Requisitos
+
+- Node.js >= 18.x
+- npm >= 9.x
+
+---
+
 ## 🚀 Ejecución del proyecto
 
 ```bash
