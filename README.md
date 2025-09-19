@@ -9,7 +9,7 @@ Está construido con **React + Vite**, utilizando **TailwindCSS** para los estil
 
 ```bash
 git clone git@github.com:JCorxs/prueba-tecnica-ikusi.git
-cd prueba-react-vite
+cd prueba-tecnica-ikusi
 npm install
 npm run dev
 ```
